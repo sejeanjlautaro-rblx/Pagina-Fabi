@@ -108,6 +108,54 @@ function buildCategoryBar(container, selected, onSelect) {
 }
 
 /* ============================================================
+   Par de dropdowns de categoría (caballeros / damas) — usado en Llaves
+   ============================================================ */
+function buildCategorySelectBar(container, selected, onSelect) {
+  container.innerHTML = '';
+
+  const groups = [
+    { key: 'caballero', label: 'Caballeros', cls: '' },
+    { key: 'dama', label: 'Damas', cls: ' dama' },
+  ];
+
+  groups.forEach((g) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'select-group';
+
+    const label = document.createElement('label');
+    label.textContent = g.label;
+    label.htmlFor = 'select-' + g.key;
+
+    const select = document.createElement('select');
+    select.id = 'select-' + g.key;
+    select.className = 'category-select' + g.cls;
+
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '—';
+    select.appendChild(placeholder);
+
+    CATEGORIES.filter((c) => c.group === g.key).forEach((c) => {
+      const opt = document.createElement('option');
+      opt.value = c.code;
+      opt.textContent = c.label;
+      select.appendChild(opt);
+    });
+
+    const selectedCat = CATEGORIES.find((c) => c.code === selected);
+    select.value = selectedCat && selectedCat.group === g.key ? selected : '';
+
+    select.addEventListener('change', () => {
+      if (select.value) onSelect(select.value);
+    });
+
+    wrap.appendChild(label);
+    wrap.appendChild(select);
+    container.appendChild(wrap);
+  });
+}
+
+/* ============================================================
    VISTA: TABLA DE POSICIONES
    ============================================================ */
 function renderRankingTable(categoryCode) {
@@ -213,10 +261,14 @@ function renderBracket(categoryCode) {
 function initBracketView() {
   const bar = document.getElementById('bracket-category-bar');
   if (!bar) return;
-  const initialCategory = Object.keys(BRACKETS)[0] || CATEGORIES[0].code;
+
+  const me = PLAYERS.find((p) => p.id === CURRENT_USER_ID);
+  const initialCategory = (me && BRACKETS[me.category])
+    ? me.category
+    : (Object.keys(BRACKETS)[0] || CATEGORIES[0].code);
 
   function select(code) {
-    buildCategoryBar(bar, code, select);
+    buildCategorySelectBar(bar, code, select);
     renderBracket(code);
   }
   select(initialCategory);
