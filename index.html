@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liga Fabi — Pádel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="#inicio" class="brand"><span class="brand-ball"></span> Liga Fabi</a>
+    <nav class="main-nav">
+      <a href="#inicio" data-view="inicio" class="active">Inicio</a>
+      <a href="#llaves" data-view="llaves">Llaves</a>
+      <a href="#tabla" data-view="tabla">Tabla de posiciones</a>
+      <a href="#premios" data-view="premios">Premios, reglas e inscripciones</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ==================== VISTA: INICIO ==================== -->
+<div class="view active" id="view-inicio">
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="hero-eyebrow">Liga interna de pádel</span>
+      <h1>Tu ranking,<br>tu <em>categoría</em>,<br>tu próxima llave.</h1>
+      <p>Seguí los resultados de la liga: quién está arriba en tu categoría, contra quién jugás la próxima fecha y qué se pone en juego este período.</p>
+      <div class="hero-actions">
+        <a href="#tabla" class="btn btn-primary" data-view-link="tabla">Ver tabla de posiciones</a>
+        <a href="#llaves" class="btn btn-ghost" data-view-link="llaves">Ver llaves en juego</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam-divider"></div>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="section-title">¿Qué querés ver?</h2>
+      <p class="section-sub">Tres secciones, todo lo que necesitás para seguir la liga.</p>
+      <div class="card-grid">
+        <a href="#llaves" class="nav-card" data-view-link="llaves">
+          <span class="tag">Cuadros en juego</span>
+          <h3>Llaves</h3>
+          <p>Mirá el cuadro de tu categoría, quién avanza y quién quedó afuera en cada ronda.</p>
+          <span class="arrow">Ver llaves →</span>
+        </a>
+        <a href="#tabla" class="nav-card" data-view-link="tabla">
+          <span class="tag">Ranking actualizado</span>
+          <h3>Tabla de posiciones</h3>
+          <p>Puntos por categoría, de C9 a C1 y de D9 a D1. Filtrá por la tuya o mirá el resto.</p>
+          <span class="arrow">Ver tabla →</span>
+        </a>
+        <a href="#premios" class="nav-card" data-view-link="premios">
+          <span class="tag">Antes de jugar</span>
+          <h3>Premios, reglas e inscripciones</h3>
+          <p>Qué se gana, cómo se juega, y cómo anotarte al próximo torneo.</p>
+          <span class="arrow">Ver más →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <h2 class="section-title">Líderes por categoría</h2>
+      <p class="section-sub">Quién manda hoy en algunas de las categorías más activas.</p>
+      <div class="leader-strip" id="leader-strip"></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ==================== VISTA: LLAVES ==================== -->
+<div class="view" id="view-llaves">
+  <section class="section" style="padding-bottom:0;">
+    <div class="wrap">
+      <h2 class="section-title">Llaves</h2>
+      <p class="section-sub">El cuadro de tu categoría, ronda por ronda.</p>
+    </div>
+  </section>
+  <section class="section" style="padding-top:16px;">
+    <div class="wrap">
+      <div class="category-bar" id="bracket-category-bar"></div>
+      <div id="bracket-container"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== VISTA: TABLA DE POSICIONES ==================== -->
+<div class="view" id="view-tabla">
+  <section class="section" style="padding-bottom:0;">
+    <div class="wrap">
+      <h2 class="section-title">Tabla de posiciones</h2>
+      <p class="section-sub">Elegí una categoría para ver su ranking. C1 y D1 son las categorías más altas.</p>
+    </div>
+  </section>
+  <section class="section" style="padding-top:16px;">
+    <div class="wrap">
+      <div class="category-bar" id="ranking-category-bar"></div>
+      <div class="table-card">
+        <table class="ranking">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Jugador/a</th>
+              <th>Categoría</th>
+              <th>Puntos</th>
+              <th>Tendencia</th>
+            </tr>
+          </thead>
+          <tbody id="ranking-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== VISTA: PREMIOS / REGLAS / INSCRIPCIONES ==================== -->
+<div class="view" id="view-premios">
+  <section class="section" style="padding-bottom:0;">
+    <div class="wrap">
+      <h2 class="section-title">Premios, reglas e inscripciones</h2>
+      <p class="section-sub">Todo lo que hay que saber antes de jugar el próximo torneo.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:16px;">
+    <div class="wrap">
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="premios-sub">Premios</button>
+        <button class="tab-btn" data-tab="reglas-sub">Reglas</button>
+        <button class="tab-btn" data-tab="inscripciones-sub">Inscripciones</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-premios-sub">
+        <div class="podium" id="podium"></div>
+        <p class="section-sub" style="margin-top:20px;">Los premios aplican por categoría — cada C y cada D tiene su propio podio.</p>
+      </div>
+
+      <div class="tab-panel" id="tab-reglas-sub">
+        <ul class="rule-list" id="rule-list"></ul>
+      </div>
+
+      <div class="tab-panel" id="tab-inscripciones-sub">
+        <div class="form-card">
+          <form id="insc-form">
+            <div class="field">
+              <label for="nombre">Nombre y apellido</label>
+              <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan Pérez">
+            </div>
+            <div class="field">
+              <label for="categoria">Categoría</label>
+              <select id="categoria" name="categoria" required></select>
+            </div>
+            <div class="field">
+              <label for="telefono">Teléfono / WhatsApp</label>
+              <input type="tel" id="telefono" name="telefono" required placeholder="Ej: 11 2345 6789">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Anotarme al torneo</button>
+          </form>
+          <p class="notice" id="insc-notice">Por ahora esta inscripción no se guarda en ningún lado — es una vista previa. Cuando conectemos la base de datos, va a anotarte directo en la liga.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Liga Fabi · Actualizado a mano por ahora, pronto en vivo con Supabase.</p>
+    <p>C1–C9 caballeros · D1–D9 damas</p>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="main.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
