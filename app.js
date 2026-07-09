@@ -38,28 +38,44 @@ document.addEventListener('click', (e) => {
 });
 
 /* ============================================================
-   VISTA: INICIO — líderes por categoría
+   VISTA: INICIO — mini perfil + top de tu liga
    ============================================================ */
-function renderLeaders() {
-  const strip = document.getElementById('leader-strip');
-  if (!strip) return;
-  const featured = ['C1', 'C3', 'C6', 'D1', 'D2'];
-  strip.innerHTML = '';
-  featured.forEach((code) => {
-    const top = PLAYERS
-      .filter((p) => p.category === code)
-      .sort((a, b) => b.points - a.points)[0];
-    if (!top) return;
-    const el = document.createElement('div');
-    el.className = 'leader-card';
-    el.innerHTML = `
-      <span class="leader-cat">${code}</span>
-      <div>
-        <div class="leader-name">${top.name}</div>
-        <div class="leader-points">${top.points} pts</div>
-      </div>
+function renderHeroWidget() {
+  const nameEl = document.getElementById('mp-name');
+  const metaEl = document.getElementById('mp-meta');
+  const titleEl = document.getElementById('mr-title');
+  const listEl = document.getElementById('mini-ranking-list');
+  if (!nameEl) return;
+
+  const me = PLAYERS.find((p) => p.id === CURRENT_USER_ID);
+  if (!me) return;
+
+  nameEl.textContent = me.name;
+  metaEl.innerHTML = `${me.category} · <strong>${me.points} pts</strong>`;
+
+  const catLabel = CATEGORIES.find((c) => c.code === me.category)?.label || me.category;
+  titleEl.textContent = `Top ${catLabel}`;
+
+  const ranked = PLAYERS
+    .filter((p) => p.category === me.category)
+    .sort((a, b) => b.points - a.points);
+
+  const topN = ranked.slice(0, 5);
+  // si yo no entro en el top 5, lo agrego igual al final para que siempre me vea
+  const meInTop = topN.some((p) => p.id === me.id);
+  const rowsToShow = meInTop ? topN : [...topN, { ...me, __myPos: ranked.findIndex((p) => p.id === me.id) + 1 }];
+
+  listEl.innerHTML = '';
+  rowsToShow.forEach((p) => {
+    const pos = p.__myPos || ranked.findIndex((r) => r.id === p.id) + 1;
+    const li = document.createElement('li');
+    if (p.id === me.id) li.classList.add('me');
+    li.innerHTML = `
+      <span class="pos">${pos}</span>
+      <span class="name">${p.name}</span>
+      <span class="pts">${p.points}</span>
     `;
-    strip.appendChild(el);
+    listEl.appendChild(li);
   });
 }
 
@@ -259,7 +275,7 @@ function initPremiosView() {
    INIT
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
-  renderLeaders();
+  renderHeroWidget();
   initRankingView();
   initBracketView();
   initPremiosView();

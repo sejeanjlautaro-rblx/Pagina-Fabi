@@ -26,12 +26,29 @@
 
   <section class="hero">
     <div class="wrap">
-      <span class="hero-eyebrow">Liga interna de pádel</span>
-      <h1>Tu ranking,<br>tu <em>categoría</em>,<br>tu próxima llave.</h1>
-      <p>Seguí los resultados de la liga: quién está arriba en tu categoría, contra quién jugás la próxima fecha y qué se pone en juego este período.</p>
-      <div class="hero-actions">
-        <a href="#tabla" class="btn btn-primary" data-view-link="tabla">Ver tabla de posiciones</a>
-        <a href="#llaves" class="btn btn-ghost" data-view-link="llaves">Ver llaves en juego</a>
+      <div class="hero-grid">
+
+        <div class="hero-main">
+          <span class="hero-eyebrow">Liga interna de pádel</span>
+          <h1>Tu ranking,<br>tu <em>categoría</em>,<br>tu próxima llave.</h1>
+          <p>Seguí los resultados de la liga: quién está arriba en tu categoría, contra quién jugás la próxima fecha y qué se pone en juego este período.</p>
+          <div class="hero-actions">
+            <a href="#tabla" class="btn btn-primary" data-view-link="tabla">Ver tabla de posiciones</a>
+            <a href="#llaves" class="btn btn-ghost" data-view-link="llaves">Ver llaves en juego</a>
+          </div>
+        </div>
+
+        <aside class="hero-sidebar">
+          <div class="mini-profile">
+            <div class="mini-profile-name" id="mp-name">—</div>
+            <div class="mini-profile-meta" id="mp-meta">—</div>
+          </div>
+          <div class="mini-ranking">
+            <div class="mini-ranking-title" id="mr-title">Tu liga</div>
+            <ol id="mini-ranking-list"></ol>
+          </div>
+        </aside>
+
       </div>
     </div>
   </section>
@@ -65,13 +82,6 @@
     </div>
   </section>
 
-  <section class="section" style="padding-top:0;">
-    <div class="wrap">
-      <h2 class="section-title">Líderes por categoría</h2>
-      <p class="section-sub">Quién manda hoy en algunas de las categorías más activas.</p>
-      <div class="leader-strip" id="leader-strip"></div>
-    </div>
-  </section>
 
 </div>
 

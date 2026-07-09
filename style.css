@@ -152,8 +152,116 @@ ul { list-style: none; margin: 0; padding: 0; }
 /* -------- Hero -------- */
 .hero {
   background: linear-gradient(180deg, var(--azul-francia-light) 0%, var(--white) 100%);
-  padding: 64px 0 48px;
+  padding: 48px 0;
   border-bottom: 1px solid var(--line);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 40px;
+  align-items: start;
+}
+
+/* -------- Sidebar del hero: mini perfil + top de tu liga -------- */
+.hero-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mini-profile {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+
+.mini-profile-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mini-profile-meta {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--azul-francia);
+  margin-top: 4px;
+}
+
+.mini-profile-meta strong {
+  color: var(--verde-bocha-dark);
+}
+
+.mini-ranking {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px 6px;
+  box-shadow: var(--shadow);
+}
+
+.mini-ranking-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+
+.mini-ranking ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mini-ranking li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 0;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+}
+
+.mini-ranking li:first-child { border-top: none; }
+
+.mini-ranking li.me {
+  background: var(--azul-francia-light);
+  margin: 0 -16px;
+  padding: 7px 16px;
+  border-top-color: transparent;
+  border-radius: 6px;
+}
+
+.mini-ranking .pos {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--ink-soft);
+  width: 16px;
+  flex-shrink: 0;
+}
+
+.mini-ranking .name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mini-ranking .pts {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  flex-shrink: 0;
 }
 
 .hero-eyebrow {
@@ -726,8 +834,15 @@ a:focus-visible, button:focus-visible, .pill:focus-visible {
   * { animation: none !important; transition: none !important; }
 }
 
+@media (max-width: 520px) {
+  .hero-sidebar { flex-direction: column; }
+}
+
 /* -------- Responsive -------- */
 @media (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-sidebar { flex-direction: row; }
+  .mini-profile, .mini-ranking { flex: 1; }
   .card-grid { grid-template-columns: 1fr; }
   .podium { grid-template-columns: 1fr; }
   .main-nav { display: none; }

@@ -123,7 +123,10 @@ const BRACKETS = {
   },
 };
 
-// Tabla "prizes"
+// Simula el usuario logueado (más adelante esto va a venir de la sesión de Supabase).
+// Por ahora apunta a un id de la tabla PLAYERS de arriba.
+const CURRENT_USER_ID = 1; // Fabián Torres — C3
+
 const PRIZES = [
   { place: '1er puesto', prize: 'Paletero + 2 grips + inscripción bonificada', place_class: 'first' },
   { place: '2do puesto', prize: 'Set de grips + 20% off próxima inscripción', place_class: 'second' },
